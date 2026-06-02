@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Art Portfolio</title>
+    <style>
+        /* Basic Reset & Typography */
+		/*comment*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Flexbox wrapper to force footer completely to the bottom edge */
+        html, body {
+            height: 100%;
+        }
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #ffffff; 
+            color: #121212; 
+            padding: 0 2rem 0 2rem; 
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Full-Width Blue Strip Header Container */
+        .header-strip {
+            background-color: #0056b3; 
+            width: calc(100% + 4rem); 
+            margin-left: -2rem; 
+            margin-right: -2rem; 
+            padding: 0.7rem 2rem; 
+            margin-bottom: 0px; 
+            flex-shrink: 0;
+        }
+
+        /* Top Layout Wrapper */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; 
+            width: 100%;
+        }
+
+        /* Header Styles */
+        header {
+            text-align: left;
+        }
+        header h1 {
+            font-size: 1.1rem; 
+            letter-spacing: 1px;
+            color: #ffffff; 
+            line-height: 1; 
+            font-weight: 600;
+            cursor: pointer; 
+            user-select: none;
+        }
+
+        /* Permanent Horizontal Menu Links Container */
+        .nav-menu {
+            display: flex;
+            flex-direction: row-reverse; 
+            gap: 20px; 
+            background: transparent; 
+            list-style: none;
+            align-items: center;
+        }
+        .nav-menu li {
+            display: flex;
+            align-items: center;
+        }
+        .nav-menu li a {
+            text-decoration: none;
+            color: #b3d1ff; 
+            font-size: 0.9rem; 
+            font-weight: 400; 
+            transition: color 0.2s ease, font-weight 0.1s ease;
+            cursor: pointer;
+            display: block;
+            white-space: nowrap; 
+        }
+        .nav-menu li a:hover {
+            color: #ffffff; 
+        }
+
+        /* House Icon Wrapper Button Base Rules */
+        .nav-menu li a.home-icon-btn {
+            color: #b3d1ff; 
+            display: flex;
+            align-items: center;
+        }
+        .nav-menu li a.home-icon-btn svg {
+            fill: currentColor;
+            width: 16px;  
+            height: 16px;
+            transition: transform 0.2s ease;
+        }
+        .nav-menu li a.home-icon-btn:hover svg {
+            transform: scale(1.1);
+        }
+
+        /* Active Selected Class Rule (Bright White) */
+        .nav-menu li a.active-link {
+            font-weight: 700; 
+            color: #ffffff !important; 
+        }
+
+        /* Dynamic Main Workspace Wrapper Container */
+        .main-content-wrapper {
+            flex: 1 0 auto;
+        }
+
+        /* Home Hero View Frame */
+        .home-hero-container {
+            position: relative;
+            width: calc(100% + 4rem); 
+            margin-left: -2rem; 
+            margin-right: -2rem;
+            height: 690px;
+            background-color: #f4f4f4;
+            overflow: hidden; 
+            display: flex;
+            flex-direction: row; 
+            align-items: center;
+            padding: 0 4rem; 
+        }
+
+        /* The Blue 50% Opacity Overlay Rectangle (Layer 2) */
+        .home-hero-container::after {
+            content: ""; 
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 86, 179, 0.5); 
+            z-index: 2; 
+            pointer-events: none; 
+        }
+
+      /* The Background Image (Layer 1) */
+        .home-hero-container .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            display: block;
+            z-index: 1; /* Fixed typo from z-dex */
+        }
+
+        /* Styled Text container on the left layout track */
+        .home-left-space {
+            position: relative;
+            z-index: 3; /* Fixed typo from z-dex */
+            flex: 1;
+            color: #ffffff;
+            padding-right: 2rem; /* Fixed typo from paddg-right */
+            display: flex;
+            flex-direction: column;
+            gap: 12px; 
+        }
+        .home-left-space h2 {
+            font-size: 3.8rem; 
+            font-weight: 700;
+            letter-spacing: 1px; /* Fixed typo from letter-spacg */
+            line-height: 1.1; /* Fixed typo from le-height */
+            margin-bottom: 4px; /* Fixed typo from marg-bottom */
+        }
+        .home-left-space .sub-line { /* Fixed typo from sub-le */
+            font-size: 1.8rem; 
+            font-weight: 400;
+            color: #e6f0ff; 
+        }
+
+        /* Container for Buttons with expanded layout spacing */
+        .home-cta-row {
+            display: flex;
+            flex-direction: row;
+            gap: 30px; 
+            margin-top: 24px; /* Fixed typo from marg-top */
+            align-items: center;
+        }
+        
+        /* Play Button Base Configuration */
+        .home-cta-btn {
+            font-size: 1.8rem; 
+            font-weight: 400;
+            text-decoration: none;
+            cursor: pointer; /* Fixed typo from poter */
+            transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+            display: inline-block; /* Fixed typo from le-block */
+            padding: 10px 28px; /* Fixed typo from paddg */
+            border-radius: 100px; 
+            white-space: nowrap;
+        }
+        
+        /* Universal Gray Background & Black Text Hover Effect */
+        .home-cta-btn:hover {
+            background-color: #d0d0d0 !important;
+            border-color: #d0d0d0 !important;
+            color: #121212 !important;
+            transform: translateY(-1px);
+        }
+        
+        /* Solid Orange Oval Link (No background visibility) */
+        .home-cta-btn.primary {
+            color: #ffffff;
+            background-color: #ff7700; 
+            border: 2px solid #ff7700; 
+        }
+        
+        /* Transparent White Ring Oval Link style */
+        .home-cta-btn.secondary {
+            color: #ffffff;
+            border: 2px solid #ffffff; 
+            background-color: transparent; 
+        }
+
+        /* The Selfie Image Wrapper */
+        .home-selfie-wrapper {
+            position: relative;
+            z-index: 3;  /* Fixed typo from z-dex */
+            max-width: 700px; 
+            width: 65%; 
+            margin-left: auto; /* Fixed typo from marg-left */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .home-selfie-wrapper img {
+            width: 100%;
+            height: auto;
+            max-height: 650px; 
+            object-fit: conta;
+            display: block;
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+        }
+
+        /* Welcome Text Stylg - Spreadg edge to edge equally */
+        .home-welcome-container {
+            margin-top: 3.5rem; 
+            margin-bottom: 4rem;
+            width: 100%; 
+        }
+        .home-welcome-container h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            color: #121212;
+        }
+        .home-welcome-container p {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: #333333;
+            margin-bottom: 1.5rem;
+        }
+
+        /* About Me Alternating Rows System */
+        .about-section-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem; 
+        }
+        .about-section-container h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #121212;
+            margin-bottom: 1.5rem;
+        }
+        .about-row {
+            display: flex;
+            flex-direction: row;
+            gap: 2.5rem; 
+            align-items: flex-start;
+            width: 100%;
+        }
+        .about-text-column {
+            width: 65%; 
+        }
+        
+        /* Shifts text outward and keeps it beautifully balanced */
+        .about-row .text-left-shifted {
+            padding-left: 2.5rem;
+        }
+        .about-row .text-right-shifted {
+            padding-right: 2.5rem;
+        }
+
+        .about-text-column p {
+            font-size: 1.15rem;
+            line-height: 1.75;
+            color: #333333;
+            margin-bottom: 1.5rem; 
+        }
+
+        .about-image-column {
+            width: 35%; 
+            display: flex;
+        }
+        
+        /* Moves the images inward from the screen edge */
+        .about-row .image-right {
+            padding-right: 4.5rem;
+        }
+        .about-row .image-left {
+            padding-left: 4.5rem;
+        }
+
+        .about-image-column img {
+            width: 100%;
+            max-width: 340px; 
+            height: auto;
+            object-fit: cover;
+            border: 1px solid #dddddd;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        /* Align images tightly flush against their layout edge boundaries */
+        .about-row .image-right img {
+            margin-left: auto;
+        }
+        .about-row .image-left img {
+            margin-right: auto;
+        }
+
+        /* Experiences CSS Grid Layout Alignment Fix */
+        .experiences-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 40px;
+            width: 100%;
+            align-items: flex-start;
+        }
+        
+        .experiences-column {
+            display: contents;
+        }
+
+        /* Course / Experience Structured Container Card */
+        .course-card {
+            background-color: #ffffff;
+            padding: 24px 0; 
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            transition: transform 0.2s ease;
+            cursor: pointer; 
+        }
+        
+        .course-card:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Top Bar Header Layout with Flex Alignments */
+        .course-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 6px;
+            margin-bottom: 4px;
+        }
+
+        .course-header h3 {
+            font-size: 1.35rem;
+            color: #0056b3;
+            font-weight: 700;
+        }
+
+        .course-date {
+            font-size: 1rem;
+            color: #666666;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .course-description {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #222222;
+        }
+
+        /* Cleaned Image Container Canvas without borders */
+        .course-image-frame {
+            width: 100%;
+            height: auto; 
+            background-color: transparent; 
+            border: none; 
+            display: block;
+        }
+        
+        .course-image-frame img {
+            width: 100%;
+            height: auto;
+            max-height: 450px; 
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Experiences Section heading layout spacing adjustments */
+        #screen-experiences h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #121212; 
+            margin-bottom: 1.5rem; 
+        }
+        .course-sub-description {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #555555;
+            border-left: 3px solid #ff7700;
+            padding-left: 10px;
+        }
+
+        /* Asymmetrical Split Image Layout (2/3 Left, 1/3 Right) */
+        .split-image-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr; 
+            gap: 12px; 
+            width: 100%;
+        }
+
+        .split-image-row img {
+            width: 100%;
+            height: auto;
+            max-height: 450px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Persistent Site Footer (The Shared Gray Section) */
+        .site-footer {
+            background-color: #e0e0e0; 
+            width: calc(100% + 4rem); 
+            margin-left: -2rem; 
+            margin-right: -2rem; 
+            padding: 4rem 4rem 2rem 4rem; 
+            color: #121212;
+            flex-shrink: 0; 
+            margin-top: auto; 
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Three Column Layout Configuration with Increased Spacing */
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 90px; 
+            align-items: flex-start;
+            width: 100%;
+        }
+
+        /* Column Standard Adjustments */
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+        }
+        .footer-col h4 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            color: #121212;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Leftmost section text configuration */
+        .footer-col.bio-text p {
+            font-size: 1.15rem; 
+            line-height: 1.6;
+            color: #2b2b2b;
+        }
+
+        /* Darker Gray Horizontal Underline Strip Rule */
+        .footer-underline {
+            height: 3px;
+            background-color: #8c8c8c; 
+            width: 100%;
+            margin-bottom: 1.2rem;
+        }
+
+        /* Full-Width Underline above copyright */
+        .footer-bottom-line {
+            height: 2px;
+            background-color: #8c8c8c;
+            width: 100%;
+            margin-top: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Copyright Text Container Styling */
+        .footer-copyright-text {
+            font-size: 0.95rem;
+            color: #444444;
+            text-align: center;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        /* List elements style alignments inside footer columns */
+        .footer-list-row {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #2b2b2b;
+            display: flex;
+            align-items: center;
+            gap: 10px; 
+        }
+        
+        /* Make the interactive row change children properties synchronously on hover */
+        .footer-interactive-row {
+            cursor: pointer;
+        }
+        
+        .footer-list-link {
+            text-decoration: none;
+            color: #2b2b2b;
+            transition: color 0.2s ease;
+        }
+
+        /* Footer SVG Icon Base Styling */
+        .footer-icon {
+            width: 18px;
+            height: 18px;
+            fill: #444444; 
+            flex-shrink: 0;
+            display: inline-block;
+            transition: fill 0.2s ease;
+        }
+
+        /* Linked Hover States: Color text and icon concurrently to header blue */
+        .footer-interactive-row:hover .footer-list-link {
+            color: #0056b3;
+        }
+        .footer-interactive-row:hover .footer-icon {
+            fill: #0056b3;
+        }
+
+        /* Dynamic Content Sections Styling */
+        .portfolio-section {
+            display: none; 
+            margin-top: 3rem;
+            margin-bottom: 4rem;
+        }
+        .blank-section {
+            display: none; 
+            font-size: 1.2rem;
+            color: #666;
+            margin-top: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        /* Specific override rules for screen-specific spacing closer to the top header */
+        #screen-home {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+        #screen-about {
+            margin-top: 2.5rem; 
+        }
+        #screen-contact-info {
+            margin-top: 3.5rem;
+        }
+        #screen-experiences {
+            margin-top: 3.5rem;
+        }
+
+        /* Printable Embedded PDF Resume Canvas Styles */
+        .resume-page-wrapper {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .resume-page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #121212;
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
+        .resume-embed-container {
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #dddddd;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .resume-embed-container iframe {
+            width: 100%;
+            height: 1100px; 
+            border: none;
+            display: block;
+        }
+
+        /* The Art Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 25px; 
+            margin: 0; 
+        }
+
+        /* Gallery Item Card */
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 0; 
+            background-color: #f0f0f0; 
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 1; 
+        }
+        .gallery-item:hover {
+            transform: scale(1.02);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 320px; 
+            object-fit: cover;
+            display: block;
+        }
+        .art-info {
+            padding: 18px; 
+            background: #ffffff;
+        }
+        .art-info h3 {
+            font-size: 1.2rem; 
+            margin-bottom: 5px;
+            color: #121212;
+        }
+        .art-info p {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        /* Full Screen Detail Overlay (Lightbox) */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.98); 
+            z-index: 10000; 
+        }
+        .lightbox-wrapper {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+        .lightbox-images-side {
+            width: 65%; 
+            height: 100%;
+            overflow-y: auto; 
+            padding: 6rem 2rem 4rem 4rem; 
+            display: flex;
+            flex-direction: column;
+            gap: 40px; 
+            align-items: flex-start; 
+        }
+        .lightbox-images-side img {
+            width: 100%;
+            max-width: 800px; 
+            height: auto;
+            max-height: 85vh;
+            object-fit: contain; 
+            border-radius: 0;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.06);
+        }
+        .lightbox-text-side {
+            width: 35%; 
+            height: 100%;
+            padding: 7rem 4rem 4rem 2rem;
+            border-left: 1px solid #eeeeee; 
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        .lightbox-text-side h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+            color: #121212;
+        }
+        .lightbox-text-side p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #444444;
+        }
+        .close-btn {
+            position: fixed;
+            top: 20px;
+            right: 40px;
+            color: #121212;
+            font-size: 40px;
+            text-decoration: none;
+            z-index: 10002;
+            cursor: pointer;
+            background: rgba(255,255,255,0.8);
+            padding: 0 10px;
+        }
+
+        /* Clean Contact Page Interactive Row Rules */
+        .contact-interactive-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 1.25rem;
+            color: #2b2b2b;
+            cursor: pointer;
+        }
+        .contact-interactive-row .contact-icon {
+            width: 24px;
+            height: 24px;
+            fill: #444444;
+            flex-shrink: 0;
+            transition: fill 0.2s ease;
+        }
+        .contact-interactive-row .contact-link {
+            text-decoration: none;
+            color: #2b2b2b;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        /* Hover triggers both child items concurrently */
+        .contact-interactive-row:hover .contact-link {
+            color: #0056b3;
+        }
+        .contact-interactive-row:hover .contact-icon {
+            fill: #0056b3;
+        }
+
+        @media (max-width: 1024px) {
+            .footer-grid {
+                gap: 40px; 
+            }
+        }
+
+        @media (max-width: 900px) {
+            .home-hero-container {
+                flex-direction: column;
+                height: auto;
+                padding: 4rem 2rem;
+                align-items: flex-start;
+            }
+            .home-left-space {
+                padding-right: 0;
+                margin-bottom: 2rem;
+            }
+            .home-left-space h2 {
+                font-size: 2.6rem;
+            }
+            .home-left-space .sub-line {
+                font-size: 1.4rem;
+            }
+            .home-cta-row {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            .home-cta-btn {
+                font-size: 1.3rem;
+                padding: 8px 20px;
+            }
+            .home-selfie-wrapper {
+                width: 95%;
+                margin: 0 auto;
+            }
+            .about-section-container {
+                gap: 1rem;
+            }
+            .about-row {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .about-text-column, .about-image-column {
+                width: 100%;
+            }
+            .about-row .text-left-shifted, 
+            .about-row .text-right-shifted {
+                padding-left: 0;
+                padding-right: 0;
+            }
+            .about-row .image-right,
+            .about-row .image-left {
+                padding-left: 0;
+                padding-right: 0;
+            }
+            .about-image-column {
+                max-width: 400px;
+                margin: 0 auto !important;
+            }
+            .about-image-column img {
+                max-width: 100%;
+                margin: 0 auto !important;
+            }
+            .experiences-container {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            .experiences-column {
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+            }
+            .site-footer {
+                padding: 3rem 2rem 1.5rem 2rem;
+                width: calc(100% + 4rem);
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+            .footer-bottom-line {
+                margin-top: 2rem;
+            }
+            .lightbox-wrapper {
+                flex-direction: column;
+                overflow-y: auto;
+            }
+            .lightbox-images-side, .lightbox-text-side {
+                width: 100%;
+                height: auto;
+                padding: 2rem;
+            }
+            .lightbox-images-side { order: 2; padding-top: 0; }
+            .lightbox-text-side { order: 1; border-left: none; padding-top: 5rem; }
+            .resume-embed-container iframe {
+                height: 700px; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-strip">
+        <div class="top-bar">
+            <header>
+                <h1 onclick="switchScreen('home')">Justin D. Rink</h1>
+            </header>
+
+            <ul class="nav-menu">
+                <li><a id="nav-contact-info" onclick="switchScreen('contact-info')">Contact Info</a></li>
+                <li><a id="nav-resume" onclick="switchScreen('resume')">Resume</a></li>
+                <li><a id="nav-experiences" onclick="switchScreen('experiences')">Experiences</a></li>
+                <li><a id="nav-design" onclick="switchScreen('design')">Design Portfolio</a></li>
+                <li><a id="nav-about" onclick="switchScreen('about')">About Me</a></li>
+                <li>
+                    <a id="nav-home" class="home-icon-btn active-link" onclick="switchScreen('home')" title="Home">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-content-wrapper">
+
+        <div id="screen-home" class="blank-section" style="display: block;">
+            <div class="home-hero-container">
+                <img src="images/buildings.jpeg" class="bg-image" alt="Buildings Background Asset">
+                
+                <div class="home-left-space">
+                    <h2>Justin D. Rink</h2>
+                    <div class="sub-line">Hope College Graduate</div>
+                    <div class="sub-line">BS Mechanical Engineering</div>
+                    
+                    <div class="home-cta-row">
+                        <a class="home-cta-btn primary" onclick="switchScreen('contact-info')">Contact Me</a>
+                        <a class="home-cta-btn secondary" onclick="switchScreen('about')">Learn More</a>
+                    </div>
+                </div>
+
+                <div class="home-selfie-wrapper">
+                    <img src="images/selfie.jpeg" alt="Justin D. Rink Portrait asset">
+                </div>
+            </div>
+            
+            <div class="home-welcome-container">
+                <h3>Hello! I'm Justin D. Rink!</h3>
+                <p>Hello! I'm a 2026 Graduate of Hope College with a BS in Mechanical Engineering. Currently I am looking for work in the greater Grand Rapids Metro Area.</p>
+                <p>Creative and innovative work has fasicnated me for years. My focus is industrial and innovative design and how smart choices there can impact peoples lives. I love design and the creative process. The different way ideas are turned into solutions is so compelling to me and leaves so much to learn.</p>
+            </div>
+        </div>
+
+        <div id="screen-about" class="blank-section">
+            <div class="about-section-container">
+                
+                <div class="about-row">
+                    <div class="about-text-column text-left-shifted">
+                        <h2>About Me</h2>
+                        <p>Hello! My name is Justin Rink and I am a 2026 Graduate of Hope College with a BS in Mechanical Engineering. My areas of focus are industry related engineering and innovative design work.</p>
+			
+			<p>Innovative design and problem solving has fascinated me for years. How engineers are tasked with the responsiblity of making smart choices that can impact people's lives is a repsonsibility I want to have. Much of my effort inside and outside of the classroom has been to improve and learn on how I can more responsibly make those decisions.</p>
+			
+			<p>A bit broader, I strive for all this as I want to see the world become a more beautiful place and I beleive this is a career avenue for myself where I can see such good being accomplished. Through the interesction of intuitive mathematical reasoning and a thoughful understanding of the principles of art and design I believe I can make the world a more beautiful place.</p>
+                    </div>
+                    <div class="about-image-column image-right">
+                        <img src="images/Picture.JPG" alt="Justin D. Rink - About Me Profile Asset">
+                    </div>
+                </div>
+                
+                <div class="about-row">
+                    <div class="about-image-column image-left">
+                        <img src="images/Jump.jpg" alt="Justin D. Rink - Secondary About Me Asset">
+                    </div>
+                    <div class="about-text-column text-right-shifted">
+                        <p>In my personal life I enjoy a multitude of things. I thoughroughly love sports, as I am an advid follower of Basketball, Futbol, and American Football. With my favorite teams being Michigan and the Detroit teams. As explained, art is a big part of who I am and how I express myself and I always am finding ways to refine my skills. I truly love reading, right now I am reading through Cormac McCarthy's westerns. I love finding excuses to spend time in nature as I often volunteer for the neighborhood park. Lastly, I love social gatherings where I am surrounded by friends and family.</p>
+                    	<p>My lifestyle is very consistent and disciplined. I credit my work ethic and hardworking nature to the unfortunate knee surguries I have undergone. Starting my senior year of high school basketball I tore my ACL and from this I have had three more serious knee surgeries forcing me to rehab for years. This was a very difficult challenge, but through it I have developed an great resiliancy and a deep gratitude for the blessing in my life and all around us.</p>
+			</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="screen-experiences" class="blank-section">
+            
+            <h2>Recent Learning Experiences</h2>
+            
+            <div class="experiences-container">
+                
+                <div class="experiences-column">
+                    
+                    <div class="course-card" onclick="openSection('senior_design')">
+                        <div class="course-header">
+                            <h3>ENGS 452 Senior Design</h3>
+                            <span class="course-date">Fall 2025 & Spring 2026</span>
+                        </div>
+                        <div class="split-image-row">
+                            <img src="images/BG.jpg" alt="Senior Design Main Feature Asset (2/3)">
+                            <img src="images/BG1.PNG" alt="Senior Design Supporting Asset (1/3)">
+                        </div>
+                        <p class="course-description">Senior Deisgn gave me and my fellow teammates an opportunity to utilize all of our learned engineering knowledge and apply it to a selected problem. During the project, I made use of my CAD, materials, thermal, mechanical, and electrical engineering skillsets to finalize our design.</p>
+                    </div>
+
+                    <div class="course-card" onclick="openSection('heat_transfer')">
+                        <div class="course-header">
+                            <h3>ENGS 348 Heat Transfer</h3>
+                            <span class="course-date">Spring 2026</span>
+                        </div>
+                        <div class="course-image-frame">
+                            <img src="images/HT.jpg" alt="Heat Transfer Asset">
+                        </div>
+                        <p class="course-description">Heat Transfer gave me a greater understanding of how energy moves in the physical world. From the course I learned greatly about the transfer of energy through conduction, convection, radiation, and how system design can alter the implications of all of these.</p>
+                    </div>
+
+                    <div class="course-card" onclick="openSection('structural_analysis')">
+                        <div class="course-header">
+                            <h3>ENGS 355 Structural Analysis</h3>
+                            <span class="course-date">Fall 2025</span>
+                        </div>
+                        <div class="course-image-frame">
+                            <img src="images/Risa.jpg" alt="Structural Analysis Asset">
+                        </div>
+                        <p class="course-description">Structural Analysis gave me a greater understanding of how the physical world operates. From the course, I have a greater knowledge of loading, determinacy, deflection, and modes of failure all experienced in structures.</p>
+                    </div>
+
+                    <div class="course-card" onclick="openSection('advanced_cad')">
+                        <div class="course-header">
+                            <h3>ENGS 295 CAD II Advanced Design</h3>
+                            <span class="course-date">Fall 2025</span>
+                        </div>
+                        <div class="split-image-row">
+                            <img src="images/Slide.png" alt="CAD II Main Feature Asset (2/3)">
+                            <img src="images/AssB.png" alt="CAD II Supporting Asset (1/3)">
+                        </div>
+                        <p class="course-description">CAD II Advanced Design gave me the opportunity to practice and refine my CAD skills through the completion of various projects. The ultimate goal of this course is to pass the CWSA CAD Associate Exam, which I did! Yay!</p>
+                    </div>
+
+                    <div class="course-card" onclick="openSection('mechanical_dynamics')">
+                        <div class="course-header">
+                            <h3>ENGS 320 Mechanical Dynamics</h3>
+                            <span class="course-date">Spring 2025</span>
+                        </div>
+                        <div class="course-image-frame">
+                            <img src="images/Mech1.jpg" alt="Mechanical Dynamics Asset">
+                        </div>
+                        <p class="course-description">Mechanical Dynamics, in my opinion the hardest engineering course at Hope, gave me the opportunity to learn about the mathematics of motion. From the course, I have a superior understanding of kinematics, energy and momentum, vibrations, and planar rigid body motion.</p>
+                    </div>
+
+                    <div class="course-card" onclick="openSection('fluid_mechanics')">
+                        <div class="course-header">
+                            <h3>ENGS 346 Fluid Mechanics</h3>
+                            <span class="course-date">Spring 2025</span>
+                        </div>
+                        <div class="course-image-frame">
+                            <img src="images/Fluid.jpg" alt="Fluid Mechanics Asset">
+                        </div>
+                        <p class="course-description">Fluid Mechanics taught me about the behavior of fluids both at rest and in motion. From this course, I mastered the topics of fluid statics, viscous flow and boundary layers, conservation in systems, and internal vs. external flow.</p>
+                    </div>
+
+                    <div class="course-card" onclick="openSection('physics_research')">
+                        <div class="course-header">
+                            <h3>Physics Undergraduate Research</h3>
+                            <span class="course-date">Fall 2023 & Spring 2024</span>
+                        </div>
+                        <div class="course-image-frame">
+                            <img src="images/Present.jpg" alt="Physics Research Asset">
+                        </div>
+                        <p class="course-description">My undergraduate reasearch with the particle accelerator team was an incredible experience at Hope! From this experience, I learned about the principles and uses of particle emmission while also gaining firsthand experience operating expensive and potentially dangerous equipment allthewhile conducting precise and mathematically intensive studies.</p>
+                    </div>
+
+                    <div></div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div id="screen-contact-info" class="blank-section">
+            <div style="display: flex; gap: 2.5rem; width: 100%; align-items: flex-start;">
+                <div style="flex: 1; min-width: 280px;">
+                    <h2 style="font-size: 2rem; font-weight: 700; color: #121212; margin-bottom: 2rem;">Get In Touch</h2>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        
+                        <div class="contact-interactive-row" onclick="copyEmailToClipboard()">
+                            <svg class="contact-icon" viewBox="0 0 24 24">
+                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                            </svg>
+                            <a href="javascript:void(0)" id="email-copy-link" class="contact-link">jrink004@gmail.com</a>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 14px; font-size: 1.25rem; color: #2b2b2b;">
+                            <svg style="width: 24px; height: 24px; fill: #444444; flex-shrink: 0;" viewBox="0 0 24 24">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                            </svg>
+                            <span style="font-weight: 500;">Grand Rapids, MI 49503</span>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 14px; font-size: 1.25rem; color: #2b2b2b;">
+                            <svg style="width: 24px; height: 24px; fill: #0077b5; flex-shrink: 0;" viewBox="0 0 24 24">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                            <a href="https://www.linkedin.com/in/justin-rink-509687382/" target="_blank" style="text-decoration: none; color: #2b2b2b; font-weight: 500; transition: color 0.2s;" onmouseover="this.style.color='#0056b3'" onmouseout="this.style.color='#2b2b2b'">LinkedIn Profile</a>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 14px; font-size: 1.25rem; color: #2b2b2b;">
+                            <img src="images/indeed.png" alt="Indeed Business Icon" style="width: 24px; height: 24px; object-fit: contain; flex-shrink: 0;">
+                            <a href="https://profile.indeed.com/?hl=en_US&co=US&from=gnav-notifcenter" target="_blank" style="text-decoration: none; color: #2b2b2b; font-weight: 500; transition: color 0.2s;" onmouseover="this.style.color='#0056b3'" onmouseout="this.style.color='#2b2b2b'">Indeed Profile</a>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 14px; font-size: 1.25rem; color: #2b2b2b;">
+                            <img src="images/handshake.jpg" alt="Handshake Business Icon" style="width: 24px; height: 24px; object-fit: contain; flex-shrink: 0;">
+                            <a href="https://hope.joinhandshake.com/profiles/ckshdh" target="_blank" style="text-decoration: none; color: #2b2b2b; font-weight: 500; transition: color 0.2s;" onmouseover="this.style.color='#0056b3'" onmouseout="this.style.color='#2b2b2b'">Handshake Profile</a>
+                        </div>
+
+                    </div>
+                </div>
+                
+                <div style="flex: 2; display: flex; justify-content: flex-start;">
+                    <img src="images/Sit.JPG" alt="Justin D. Rink - Contact Information" style="width: 100%; max-width: 900px; height: auto; display: block; border: 1px solid #dddddd; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);">
+                </div>
+            </div>
+        </div>
+        
+        <div id="screen-design" class="portfolio-section">
+            <main class="gallery-grid">
+                <div class="gallery-item" onclick="openSection('obermich')">
+                    <img src="images/Face.jpeg" alt="Obermich Cover">
+                    <div class="art-info">
+                        <h3>Obermich (Incomplete)</h3>
+                        <p> Fall 2025 - Present </p>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openSection('solitude')">
+                    <img src="images/Solitude.jpeg" alt="Solitude Cover">
+                    <div class="art-info">
+                        <h3>Solitude</h3>
+                        <p> Fall 2024 - Summer 2025 </p>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openSection('beauty')">
+                    <img src="images/Beauty.jpeg" alt="Beauty Cover">
+                    <div class="art-info">
+                        <h3>Beauty</h3>
+                        <p> Summer 2024 </p>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openSection('paintings')">
+                    <img src="images/Chairs1.jpeg" alt="Paintings Cover">
+                    <div class="art-info">
+                        <h3>Paintings</h3>
+                        <p> Spring 2026 </p>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openSection('film')">
+                    <img src="images/pic5.jpg" alt="Film Cover">
+                    <div class="art-info">
+                        <h3>Analog Film</h3>
+                        <p> Spring 2024 - Present </p>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openSection('legos')">
+                    <img src="images/mo1.jpeg" alt="Legos Cover">
+                    <div class="art-info">
+                        <h3>Lego MOCs</h3>
+                        <p> Spring 2022 - Summer 2025 </p>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <div id="screen-resume" class="blank-section">
+            <div class="resume-page-wrapper">
+                <h2 class="resume-page-title">Resume</h2>
+                <div class="resume-embed-container">
+                    <iframe src="images/JustinDRink_Resume.pdf" title="Justin D. Rink - Professional Resume Document"></iframe>
+                </div>
+            </div>
+        </div>
+
+    </div> 
+    
+    <footer class="site-footer">
+        <div class="footer-grid">
+            
+            <div class="footer-col bio-text">
+                <p>Justin is a motivated and passionate engineering graduate curious about design and innovation. He has a particular interest in industrial design, however he always is open to learn and try something new.</p>
+            </div>
+            
+            <div class="footer-col">
+                <h4>My Info</h4>
+                <div class="footer-underline"></div>
+                
+                <div class="footer-list-row footer-interactive-row" onclick="switchScreen('design')">
+                    <svg class="footer-icon" viewBox="0 0 24 24">
+                        <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                    </svg>
+                    <span class="footer-list-link">Design Portfolio</span>
+                </div>
+                
+                <div class="footer-list-row footer-interactive-row" onclick="switchScreen('experiences')">
+                    <svg class="footer-icon" viewBox="0 0 24 24">
+                        <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/>
+                    </svg>
+                    <span class="footer-list-link">Experiences</span>
+                </div>
+                
+                <div class="footer-list-row footer-interactive-row" onclick="switchScreen('resume')">
+                    <svg class="footer-icon" viewBox="0 0 24 24">
+                        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                    </svg>
+                    <span class="footer-list-link">Resume</span>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Quick Contact</h4>
+                <div class="footer-underline"></div>
+                <div class="footer-list-row">
+                    <svg class="footer-icon" viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                    Grand Rapids, MI 49503
+                </div>
+                <div class="footer-list-row footer-interactive-row" onclick="switchScreen('contact-info')">
+                    <svg class="footer-icon" viewBox="0 0 24 24">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                    <span class="footer-list-link">Contact Me</span>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="footer-bottom-line"></div>
+
+        <div class="footer-copyright-text">
+            Copyright © 2026 Justin D. Rink | BS Mechanical Engineering
+        </div>
+    </footer>
+
+
+    <div id="lightbox" class="lightbox">
+        <span class="close-btn" onclick="closeSection()">&times;</span>
+        <div class="lightbox-wrapper">
+            <div id="lightbox-images" class="lightbox-images-side"></div>
+            <div class="lightbox-text-side">
+                <h2 id="lightbox-title">Section Title</h2>
+                <p id="lightbox-desc">Section Description goes here...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const collections = {
+            /* Design Portfolio Collections */
+            obermich: {
+                title: "Obermich (Incomplete)",
+                description: "Obermich, a 16 x 22in pencil collage explores themes of faithfulness, dreams, and finding ones path through life. Despite not being yet finished, I am incredibly proud of this piece and the time and thought that has gone into it.",
+                images: ['images/Face.jpeg', 'images/ober1.jpeg', 'images/ober2.jpeg','images/ober3.jpeg']
+            },
+            solitude: {
+                title: "Solitude",
+                description: "Solitude, a 16 x 22in pencil collage explores themes of patience, longing, and solitude. The varied use of texture, samples, and perspective make this piece visually interesting and a grand accomplishment of mine.",
+                images: ['images/Solitude.jpeg', 'images/sol1.jpeg', 'images/sol2.jpeg', 'images/sol3.jpeg']
+            },
+            beauty: {
+                title: "Beauty",
+                description: "Beauty, my first 16 x 22in pencil collage explores themes dwindling beauty. Just as the other collages do, Beauty illustrates a good use of composition and in a broader sense, a skillfulness in design and creativity.",
+                images: ['images/Beauty.jpeg', 'images/bea1.jpeg', 'images/bea2.jpeg','images/bea3.jpeg']
+            },
+            paintings: {
+                title: "Paintings",
+                description: "Completed in my ART 119 course, these paintings highlight my passion for creation and design in yet another medium. Worth highlighting, Chairs, the final for the course was completed on a 22 x 38in canvus with acyrlic paint. This piece through the usage of rendering, color, and composition, explores themes of risktaking and complacency.",
+                images: ['images/ChairsPainting.jpg', 'images/Chairs1.jpeg', 'images/Chairs2.jpeg', 'images/Midterm.jpeg', 'images/Midterm1.jpeg', 'images/Redbull.jpeg','images/Redbull1.jpeg']
+            },
+            film: {
+                title: "Analog Film",
+                description: "After learning the basics in my ART 113 course, shooting analog film has became another creative outlet for me. This section showcases understanding of lighting, composistion, and storytelling.",
+                images: ['images/pic5.jpg', 'images/pic1.jpg', 'images/pic2.jpg', 'images/pic3.jpg', 'images/pic4.jpg','images/pic11.jpeg', 'images/pic6.jpeg', 'images/pic7.jpeg', 'images/pic8.jpeg','images/pic9.jpeg', 'images/pic10.jpeg']
+            },
+            legos: {
+                title: "Lego MOCs",
+                description: "Built with spare pieces, all of the MOCs were strictly designed from my imagination. Each of the Modular Building, Modern House, and Minecraft Diarama all showcase another avenue of my passionate creative side.",
+                images: ['images/mo1.jpeg', 'images/mo2.jpeg', 'images/mo3.jpeg', 'images/mo4.jpeg', 'images/mo5.jpeg', 'images/mo6.jpeg', 'images/mo7.jpeg', 'images/mo8.jpeg', 'images/h1.jpeg', 'images/h2.jpeg','images/h3.jpeg','images/h4.jpeg','images/h5.jpeg','images/h6.jpeg','images/h7.jpeg','images/h8.jpeg','images/h9.jpeg','images/h10.jpeg','images/h11.jpeg','images/h12.jpeg','images/h13.jpeg', 'images/M1.jpeg', 'images/M2.jpeg','images/M3.jpeg','images/M4.jpeg','images/M5.jpeg','images/M6.jpeg']
+            },
+
+            /* Learning Experience Collections (Deep-Dives) */
+            senior_design: {
+                title: "ENGS 452 Senior Design",
+                description: "Senior Deisgn gave me and my fellow teammates an opportunity to utilize all of our learned engineering knowledge and apply it to a selected problem. My group Team BG, was tasked with creating a time effective solution to solve the task of replacing the bumper gaurds of a tennis racket. This is a very tricky and complex task, normally requiring precise movments and alot of force applied. Our group came up with a portable all in one mainteance kit that services the device with ease. During the project, I made use of my CAD, materials, thermal, mechanical, and electrical engineering skillsets to finalize our design.",
+                images: ['images/BG.jpg', 'images/BG1.PNG', 'images/BG2.JPG', 'images/BG3.JPG', 'images/BG4.JPG', 'images/Point.jpeg']
+            },
+            structural_analysis: {
+                title: "ENGS 355 Structural Analysis",
+                description: "Structural Analysis gave me a greater understanding of how the physical world operates. From the course, I have a greater knowledge of loading, determinacy, deflection, and modes of failure all experienced in structures.",
+                images: ['images/Risa.jpg']
+            },
+            mechanical_dynamics: {
+                title: "ENGS 320 Mechanical Dynamics",
+                description: "Mechanical Dynamics, in my opinion the hardest engineering course at Hope, gave me the opportunity to learn about the mathematics of motion. From the course, I have a superior understanding of kinematics, energy and momentum, vibrations, and planar rigid body motion.",
+                images: ['images/Mech1.jpg']
+            },
+            physics_research: {
+                title: "Physics Undergraduate Research",
+                description: "My undergraduate reasearch with the particle accelerator team was an incredible experience at Hope! Tasked with determining the material properties of titanium nanotude samples sent from a University in India, we operated the particle accelerator using RBS to determine the internal makeup. From this experience, I learned about the principles and uses of particle emmission while also gaining firsthand experience operating expensive and potentially dangerous equipment allthewhile conducting precise and mathematically intensive studies.",
+                images: ['images/Present.jpg']
+            },
+            heat_transfer: {
+                title: "ENGS 348 Heat Transfer",
+                description: "Heat Transfer gave me a greater understanding of how energy moves in the physical world. From the course I learned greatly about the transfer of energy through conduction, convection, radiation, and how system design can alter the implications of all of these.",
+                images: ['images/HT.jpg']
+            },
+            advanced_cad: {
+                title: "ENGS 295 CAD II Advanced Design",
+                description: "CAD II Advanced Design gave me the opportunity to practice and refine my CAD skills through the completion of various projects. Worth highlighting, the final project for this course tasked me with creating my own waterslide. As seen in the visuals, my final design is rather large and quite complex. I am quite proud of the end result as it was by far the hardest and most complex CAD design I have ever made. The ultimate goal of this course is to pass the CWSA CAD Associate Exam, which I did! Yay!",
+                images: ['images/Slide.png', 'images/AssB.png', 'images/Slide1.png', 'images/Slide2.PNG', 'images/Slide3.PNG', 'images/Slide4.PNG']
+            },
+            fluid_mechanics: {
+                title: "ENGS 346 Fluid Mechanics",
+                description: "Fluid Mechanics taught me about the behavior of fluids both at rest and in motion. From this course, I mastered the topics of fluid statics, viscous flow and boundary layers, conservation in systems, and internal vs. external flow.",
+                images: ['images/Fluid.jpg']
+            }
+        };
+
+        function switchScreen(screenKey) {
+            document.getElementById('screen-home').style.display = 'none';
+            document.getElementById('screen-design').style.display = 'none';
+            document.getElementById('screen-about').style.display = 'none';
+            document.getElementById('screen-resume').style.display = 'none';
+            document.getElementById('screen-experiences').style.display = 'none';
+            document.getElementById('screen-contact-info').style.display = 'none';
+
+            const navLinks = document.querySelectorAll('.nav-menu li a');
+            navLinks.forEach(link => {
+                link.classList.remove('active-link');
+            });
+
+            const activeNavLink = document.getElementById('nav-' + screenKey);
+            if (activeNavLink) {
+                activeNavLink.classList.add('active-link');
+            }
+
+            if (screenKey === 'design') {
+                document.getElementById('screen-design').style.display = 'block';
+            } else {
+                const targetElement = document.getElementById('screen-' + screenKey);
+                if (targetElement) {
+                    targetElement.style.display = 'block';
+                }
+            }
+            
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function openSection(sectionKey) {
+            const lightbox = document.getElementById('lightbox');
+            const imagesContainer = document.getElementById('lightbox-images');
+            const titleElement = document.getElementById('lightbox-title');
+            const descElement = document.getElementById('lightbox-desc');
+            
+            imagesContainer.innerHTML = '';
+            const targetData = collections[sectionKey];
+            
+            if (targetData) {
+                titleElement.textContent = targetData.title;
+                descElement.textContent = targetData.description;
+                
+                targetData.images.forEach(src => {
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.alt = "Gallery Deep Dive";
+                    imagesContainer.appendChild(img);
+                });
+                
+                lightbox.style.display = 'block';
+                imagesContainer.scrollTop = 0;
+                document.body.style.overflow = 'hidden'; 
+            }
+        }
+
+        function closeSection() {
+            document.getElementById('lightbox').style.display = 'none';
+            document.body.style.overflow = 'auto'; 
+        }
+
+        function copyEmailToClipboard() {
+            const emailText = "jrink004@gmail.com";
+            const linkElement = document.getElementById('email-copy-link');
+            
+            // Modern Clipboard API execution
+            navigator.clipboard.writeText(emailText).then(() => {
+                // Visual confirmation trick
+                linkElement.textContent = "Copied!";
+                linkElement.style.color = "#0056b3";
+                
+                // Return to normal text after exactly 1 second
+                setTimeout(() => {
+                    linkElement.textContent = emailText;
+                    linkElement.style.color = "#2b2b2b";
+                }, 1000);
+            }).catch(err => {
+                console.error('Failed to copy email: ', err);
+            });
+        }
+
+    </script>
+
+</body>
+</html>
